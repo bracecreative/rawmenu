@@ -138,3 +138,18 @@ function brace_allergies_order_details($order){
     echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
+
+// Set 10kg min weight for cart
+function dcwd_set_minimum_cart_weight() {
+
+    $minimum_weight = 10;
+	$cart_contents_weight = WC()->cart->get_cart_contents_weight();
+
+    if( $cart_contents_weight < $minimum_weight  ) {
+		wc_add_notice( sprintf('<strong>Your order must be at least %s%s before checking out.</strong><br />Current cart weight: %s%s',
+			$minimum_weight, get_option( 'woocommerce_weight_unit' ),
+			$cart_contents_weight, get_option( 'woocommerce_weight_unit' ) ),
+			'error'	);
+	}
+}
+add_action( 'woocommerce_check_cart_items', 'dcwd_set_minimum_cart_weight' );
