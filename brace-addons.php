@@ -108,3 +108,33 @@ function brace_notes_order_details( $order ){
 
 }
 add_action( 'woocommerce_admin_order_data_after_order_details', 'brace_notes_order_details', 10, 3 );
+
+// Add allergies field to checkout
+function brace_allergies_field( $checkout ) {
+
+    echo '<div id="allergy-notes"><h2>' . __('Allergies') . '</h2>';
+
+    woocommerce_form_field( 'allergy_notes', array(
+        'type'          => 'textarea',
+        'class'         => array('allergy-notes form-row-wide'),
+        'label'         => __('Does your dog have any allergies we should be aware of?'),
+        ), $checkout->get_value( 'allergy_notes' ));
+
+    echo '</div>';
+
+}
+add_action( 'woocommerce_after_order_notes', 'brace_allergies_field' );
+
+// Save allergies field
+function brace_allergies_field_save() {
+    if ( ! empty( $_POST['allergy_notes'] ) ) {
+        update_post_meta( $order_id, 'allergy_notes', sanitize_text_field( $_POST['allergy_notes'] ) );
+    }
+}
+add_action( 'woocommerce_checkout_update_order_meta', 'brace_allergies_field_save' );
+
+// Add allergies information to Order Details Page
+function brace_allergies_order_details($order){
+    echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
+}
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
