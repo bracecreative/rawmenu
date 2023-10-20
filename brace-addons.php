@@ -78,3 +78,33 @@ function brace_save_wc_user_private_notes( $user_id ) {
 }
 add_action( 'personal_options_update', 'brace_save_wc_user_private_notes' );
 add_action( 'edit_user_profile_update', 'brace_save_wc_user_private_notes' );
+
+// Add Notes to Order Details Page
+function brace_notes_order_details( $order ){
+
+    $order_info = $order = new WC_Order( $order->id );
+    $user_info = $order_info->get_user();
+    $user_id = $user_info->id;
+
+    $notes = array();
+    foreach( get_user_meta($user_id) as $key => $value ):
+        if (strpos($key, 'wc_private_notes_') === 0):
+            $notes[] = array(
+                'key' => $key,
+                'value' => $value
+            );
+        endif;
+    endforeach;
+
+    if( !empty( $notes ) ):
+        
+        echo '<h3 style="clear:both; padding-top:15px">Customer Notes</h3>';
+
+        foreach( $notes as $note ): ?>
+            <p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?></p>
+            <?php
+        endforeach;
+    endif;
+
+}
+add_action( 'woocommerce_admin_order_data_after_order_details', 'brace_notes_order_details', 10, 3 );
