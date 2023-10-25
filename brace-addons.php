@@ -84,30 +84,63 @@ function brace_notes_order_details( $order ){
 
     $order_info = $order = new WC_Order( $order->id );
     $user_info = $order_info->get_user();
-    $user_id = $user_info->id;
+    if( $user_info ):
+        $user_id = $user_info->id;
 
-    $notes = array();
-    foreach( get_user_meta($user_id) as $key => $value ):
-        if (strpos($key, 'wc_private_notes_') === 0):
-            $notes[] = array(
-                'key' => $key,
-                'value' => $value
-            );
-        endif;
-    endforeach;
-
-    if( !empty( $notes ) ):
-        
-        echo '<h3 style="clear:both; padding-top:15px">Customer Notes</h3>';
-
-        foreach( $notes as $note ): ?>
-            <p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?></p>
-            <?php
+        $notes = array();
+        foreach( get_user_meta($user_id) as $key => $value ):
+            if (strpos($key, 'wc_private_notes_') === 0):
+                $notes[] = array(
+                    'key' => $key,
+                    'value' => $value
+                );
+            endif;
         endforeach;
-    endif;
 
+        if( !empty( $notes ) ):
+        
+            echo '<h3 style="clear:both; padding-top:15px">Customer Notes</h3>';
+
+            foreach( $notes as $note ): ?>
+                <p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?></p>
+                <?php
+            endforeach;
+        endif;
+    endif;
 }
 add_action( 'woocommerce_admin_order_data_after_order_details', 'brace_notes_order_details', 10, 3 );
+
+// Add notes to packing slips
+function brace_notes_packing_slips ($document_type, $order) {
+    $document = wcpdf_get_document( $document_type, $order );
+    if ($document_type == 'packing-slip'):
+
+        $user_id = $order->get_user_id();
+        if ( !empty($user_id) ):
+       
+            $notes = array();
+            foreach( get_user_meta($user_id) as $key => $value ):
+                if (strpos($key, 'wc_private_notes_') === 0):
+                    $notes[] = array(
+                        'key' => $key,
+                        'value' => $value
+                    );
+                endif;
+            endforeach;
+
+            if( !empty( $notes ) ):
+                echo '<h3 style="clear:both; padding-top:15px">Customer Notes</h3>';
+
+                foreach( $notes as $note ): ?>
+                    <p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?></p>
+                    <?php
+                endforeach;
+            endif;
+
+        endif;
+    endif;
+}
+add_action( 'wpo_wcpdf_after_order_data', 'brace_notes_packing_slips', 10, 2 );
 
 // Add allergies field to checkout
 function brace_allergies_field( $checkout ) {
