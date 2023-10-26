@@ -198,15 +198,43 @@ function brace_minimum_cart_weight() {
 }
 add_action( 'woocommerce_check_cart_items', 'brace_minimum_cart_weight' );
 
+// Add Delivery slots to acf select
+function brace_acf_delivery_options( $field ) {
+
+    global $woocommerce;
+
+    $field['choices'] = array();
+    
+    $zones = WC_Shipping_Zones::get_zones();
+    $methods = array_column( $zones, 'shipping_methods' );
+    
+    foreach ( $methods[0] as $key => $class ) {
+        $item = [
+            "id" => 'flat_rate:'.$class->instance_id,
+            "name" => $class->title
+        ];
+        $choices[] = $item;
+    }
+
+    if( is_array($choices) ) {
+        foreach( $choices as $choice ) {
+            $field['choices'][ $choice['id'] ] = $choice['name'];
+        }
+    }
+
+    return $field;
+}
+
+add_filter('acf/load_field/name=next_day_delivery_class', 'brace_acf_delivery_options');
+
+// Hide NDD if time passed
 function brace_nextday_delivery_cutoff( $rates, $package ) {
     
     date_default_timezone_set("Europe/London");
     $current_time = strtotime( date("H:i:s") );
     $cutoff_time = strtotime( get_option('options_next_day_delivery_cut_off_time') );
     
-    //$cutoff_time = strtotime('13:00:00');
-
-    $delivery_id = 'flat_rate:1';
+    $delivery_id = get_option('options_next_day_delivery_class');
 
     if( $current_time > $cutoff_time ):
         unset( $rates[$delivery_id] );
