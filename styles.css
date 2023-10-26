@@ -10,13 +10,12 @@
 
 /* Cart Weight Message */
 .woocommerce-notices-wrapper {
-	padding: 1rem 0rem;
 	text-align: center;
 	margin-bottom: 1rem;
-	background-color: var(--darkRed);
 }
 .woocommerce-notices-wrapper .message-wrapper {
-	padding-bottom: 0rem;
+	padding: 1rem 0rem;
+	background-color: var(--darkRed);
 }
 .woocommerce-notices-wrapper .message-wrapper li {
 	margin-bottom: 0rem;
