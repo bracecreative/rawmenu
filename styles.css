@@ -1,0 +1,39 @@
+:root {
+	--red: #fa1d26;
+	--white: #ffffff;
+	--yellow: #e78f01;
+	--darkRed: #a70107;
+	--lightRed: #fa797e;
+	--darkerRed: #720004;
+	--darkerRedTwo: #4e0104;
+}
+
+/* Cart Weight Message */
+.woocommerce-notices-wrapper {
+	padding: 1rem 0rem;
+	text-align: center;
+	margin-bottom: 1rem;
+	background-color: var(--darkRed);
+}
+.woocommerce-notices-wrapper .message-wrapper {
+	padding-bottom: 0rem;
+}
+.woocommerce-notices-wrapper .message-wrapper li {
+	margin-bottom: 0rem;
+}
+.woocommerce-notices-wrapper .message-container {
+	color: var(--white);
+}
+
+/* Cart Up-sell Incentive */
+#woocommerce-cart-notice-name {
+	color: var(--white);
+	margin: 1rem 0rem;
+	padding: 1rem 0rem;
+	text-align: center;
+	background-color: var(--yellow);
+}
+
+#woocommerce-cart-notice-name span {
+	color: var(--white);
+}
