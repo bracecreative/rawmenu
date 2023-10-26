@@ -179,7 +179,9 @@ add_action( 'woocommerce_checkout_update_order_meta', 'brace_allergies_field_sav
 
 // Add allergies information to Order Details Page
 function brace_allergies_order_details($order){
-    echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
+    if( !empty( get_post_meta( $order->ID, 'allergy_notes', true ) ) ):
+        echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
+    endif;
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
 
