@@ -18,6 +18,12 @@ function brace_addons_enqueue( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'brace_addons_enqueue' );
 
+// Enqueue CSS styling
+function brace_addons_enqueue_css( $hook ) {
+     wp_enqueue_style( 'brace_addons_css', plugins_url( 'styles.css' , __FILE__ ), array(), '');
+}
+add_action( 'wp_enqueue_scripts', 'brace_addons_enqueue_css' );
+
 // Create User Roles
 add_role( 'wholesale', 'Wholesale', get_role( 'customer' )->capabilities );
 add_role( 'breeder', 'Breeder', get_role( 'customer' )->capabilities );
@@ -25,13 +31,14 @@ add_role( 'breeder', 'Breeder', get_role( 'customer' )->capabilities );
  /** Register private notes for the admin invoices */
 function brace_wc_user_private_notes( $user ) {
     ?>
-        <h3>Private Notes</h3>
+<h3>Private Notes</h3>
 
-        <table class="form-table" id="private-notes">
-            <tr>
-                <th><label for="wc_private_notes">Notes are only shown on the admin invoices, not shown to the customer</label></th>
-                <td>
-                    <?php
+<table class="form-table" id="private-notes">
+    <tr>
+        <th><label for="wc_private_notes">Notes are only shown on the admin invoices, not shown to the customer</label>
+        </th>
+        <td>
+            <?php
                     $notes = array();
                     foreach( get_user_meta($user->id) as $key => $value ):
                         if (strpos($key, 'wc_private_notes_') === 0):
@@ -44,21 +51,23 @@ function brace_wc_user_private_notes( $user ) {
 
                     if( !empty( $notes ) ):
                         foreach( $notes as $note ): ?>
-                            <textarea rows="2" cols="30" name="<?php echo $note['key']; ?>"><?php if( !empty( get_the_author_meta( $note['key'], $user->ID ) ) ): echo get_the_author_meta($note['key'], $user->ID); endif; ?></textarea>
-                            <?php
+            <textarea rows="2" cols="30"
+                name="<?php echo $note['key']; ?>"><?php if( !empty( get_the_author_meta( $note['key'], $user->ID ) ) ): echo get_the_author_meta($note['key'], $user->ID); endif; ?></textarea>
+            <?php
                         endforeach;
                     else:
                     ?>
-                        <textarea rows="2" cols="30" name="wc_private_notes_1"><?php if( !empty( get_the_author_meta( 'wc_private_notes_1', $user->ID ) ) ): echo get_the_author_meta('wc_private_notes_1', $user->ID); endif; ?></textarea>
-                    <?php
+            <textarea rows="2" cols="30"
+                name="wc_private_notes_1"><?php if( !empty( get_the_author_meta( 'wc_private_notes_1', $user->ID ) ) ): echo get_the_author_meta('wc_private_notes_1', $user->ID); endif; ?></textarea>
+            <?php
                     endif;
                     ?>
 
-                    <a class="new-private-note" href="#">Add new note</a>
-                </td>
-            </tr>
-        </table>
-    <?php
+            <a class="new-private-note" href="#">Add new note</a>
+        </td>
+    </tr>
+</table>
+<?php
 }
 //add_action('user_new_form', 'brace_wc_user_private_notes', 9999);
 add_action('show_user_profile', 'brace_wc_user_private_notes', 9999);
@@ -102,8 +111,9 @@ function brace_notes_order_details( $order ){
             echo '<h3 style="clear:both; padding-top:15px">Customer Notes</h3>';
 
             foreach( $notes as $note ): ?>
-                <p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?></p>
-                <?php
+<p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?>
+</p>
+<?php
             endforeach;
         endif;
     endif;
@@ -132,8 +142,9 @@ function brace_notes_packing_slips ($document_type, $order) {
                 echo '<h3 style="clear:both; padding-top:15px">Customer Notes</h3>';
 
                 foreach( $notes as $note ): ?>
-                    <p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?></p>
-                    <?php
+<p><?php if( !empty( get_the_author_meta( $note['key'], $user_id ) ) ): echo get_the_author_meta($note['key'], $user_id); endif; ?>
+</p>
+<?php
                 endforeach;
             endif;
 
@@ -169,18 +180,6 @@ add_action( 'woocommerce_checkout_update_order_meta', 'brace_allergies_field_sav
 // Add allergies information to Order Details Page
 function brace_allergies_order_details($order){
     echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
-
-    
-
-    echo date('H:i:s');
-    echo '<hr />';
-    echo get_option('options_next_day_delivery_cut_off_time');
-    
-    if(  date("H:i:s") > get_option('options_next_day_delivery_cut_off_time') ){
-        echo 'yes';
-    } else {
-        echo 'no';
-    }
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
 
