@@ -170,6 +170,8 @@ add_action( 'woocommerce_checkout_update_order_meta', 'brace_allergies_field_sav
 function brace_allergies_order_details($order){
     echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
 
+    
+
     echo date('H:i:s');
     echo '<hr />';
     echo get_option('options_next_day_delivery_cut_off_time');
@@ -199,6 +201,7 @@ add_action( 'woocommerce_check_cart_items', 'brace_minimum_cart_weight' );
 
 function brace_nextday_delivery_cutoff( $rates, $package ) {
     
+    date_default_timezone_set("Europe/London");
     $current_time = strtotime( date("H:i:s") );
     $cutoff_time = strtotime( get_option('options_next_day_delivery_cut_off_time') );
     
