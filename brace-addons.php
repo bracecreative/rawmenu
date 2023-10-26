@@ -169,6 +169,16 @@ add_action( 'woocommerce_checkout_update_order_meta', 'brace_allergies_field_sav
 // Add allergies information to Order Details Page
 function brace_allergies_order_details($order){
     echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
+
+    echo date('H:i:s');
+    echo '<hr />';
+    echo get_option('options_next_day_delivery_cut_off_time');
+    
+    if(  date("H:i:s") > get_option('options_next_day_delivery_cut_off_time') ){
+        echo 'yes';
+    } else {
+        echo 'no';
+    }
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
 
@@ -186,3 +196,20 @@ function brace_minimum_cart_weight() {
 	}
 }
 add_action( 'woocommerce_check_cart_items', 'brace_minimum_cart_weight' );
+
+function brace_nextday_delivery_cutoff( $rates, $package ) {
+    
+    $current_time = strtotime( date("H:i:s") );
+    $cutoff_time = strtotime( get_option('options_next_day_delivery_cut_off_time') );
+    
+    //$cutoff_time = strtotime('13:00:00');
+
+    $delivery_id = 'flat_rate:1';
+
+    if( $current_time > $cutoff_time ):
+        unset( $rates[$delivery_id] );
+    endif;
+    
+    return $rates;
+}
+add_filter( 'woocommerce_package_rates', 'brace_nextday_delivery_cutoff', 10, 2 );
