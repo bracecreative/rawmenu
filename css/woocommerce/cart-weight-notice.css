@@ -1,0 +1,18 @@
+/* Imports */
+@import "./base/colour";
+
+/* Cart Weight Message */
+.woocommerce-notices-wrapper {
+	text-align: center;
+	margin-bottom: 1rem;
+}
+.woocommerce-notices-wrapper .message-wrapper {
+	padding: 1rem 0rem;
+	background-color: var(--darkRed);
+}
+.woocommerce-notices-wrapper .message-wrapper li {
+	margin-bottom: 0rem;
+}
+.woocommerce-notices-wrapper .message-container {
+	color: var(--white);
+}

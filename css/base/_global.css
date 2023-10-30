@@ -1,0 +1,28 @@
+/* Global Variables */
+
+:root {
+	--fontSize-root: 1;
+	--lineHeight-base: 1.5;
+	--global-radius: 0.15rem;
+
+	/* Spacing Rhythm
+ -----------------------------------------------------------------------------
+
+	Create consistent spacing patterns in your entire projects aesthetics.
+	Build your components margins, paddings, etc based off these spacing vars.
+
+ ----------------------------------------------------------------------------- */
+
+	/* Base Spacing */
+	--spacingRhythm: var(--fontSize-root) * var(--lineHeight-base);
+
+	--spacing-base: 1rem;
+	--spacing-single: var(remCalc(var(--spacingRhythm)));
+	--spacing-double: var(remCalc(var(--spacingRhythm * 2)));
+	--spacing-half: var(remCalc(round(var(--spacingRhythm / 2))));
+	--spacing-third: var(remCalc(round(var(--spacingRhythm / 3))));
+	--spacing-quarter: var(remCalc(round(var(--spacingRhythm / 4))));
+	--spacing-fifth: var(remCalc(round(var(--spacingRhythm / 5))));
+	--spacing-sixth: var(remCalc(round(var(--spacingRhythm / 6))));
+	--spacing-eighth: var(remCalc(round(var(--spacingRhythm / 8))));
+}

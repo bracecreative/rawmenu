@@ -1,0 +1,15 @@
+/* Imports */
+@import "./base/colour";
+
+/* Cart Up-sell Incentive */
+#woocommerce-cart-notice-name {
+	color: var(--white);
+	margin: 1rem 0rem;
+	padding: 1rem 0rem;
+	text-align: center;
+	background-color: var(--yellow);
+}
+
+#woocommerce-cart-notice-name span {
+	color: var(--white);
+}

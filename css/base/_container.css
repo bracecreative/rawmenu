@@ -1,0 +1,47 @@
+/* Imports */
+@import "./_colour.css";
+
+/*  =============================================================================
+ CONTAINERS
+ =============================================================================
+
+ Purpose:
+ The centralized place to control container settings like borders and fill.
+
+ ----------------------------------------------------------------------------- */
+
+/*  Borders
+ ----------------------------------------------------------------------------- */
+:root {
+	--container-border-global-size: 1px;
+	--container-border-global-style: solid;
+	--container-border-global-color-base: stencilColor(
+		"container-border-global-color-base"
+	);
+
+	--container-border-global-base: var(--container-border-global-size)
+		var(--container-border-global-style)
+		var(--container-border-global-color-base);
+
+	/*  Drop shadows
+ ----------------------------------------------------------------------------- */
+
+	--container-drop-shadow-base: 0 1px 2px rgba(var(--black), 0.13);
+
+	/*  Backgrounds
+ ----------------------------------------------------------------------------- */
+
+	--container-fill-base: stencilColor("container-fill-base");
+	--container-fill-dark: stencilColor("container-fill-dark");
+
+	/*  Padding
+ ----------------------------------------------------------------------------- */
+
+	--container-padding-base: var(--spacing-single);
+	--container-padding-large: var(--spacing-single) + var(--spacing-third);
+
+	/*  Margin
+ ----------------------------------------------------------------------------- */
+
+	--container-margin-base: var(--spacing-single);
+}
