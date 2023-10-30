@@ -185,7 +185,9 @@ add_action( 'woocommerce_checkout_update_order_meta', 'brace_allergies_field_sav
 
 // Add allergies information to Order Details Page
 function brace_allergies_order_details($order){
-    echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
+    if( !empty( get_post_meta( $order->ID, 'allergy_notes', true ) ) ):
+        echo '<p><strong>'.__('Allergies').':</strong> ' . get_post_meta( $order->id, 'allergy_notes', true ) . '</p>';
+    endif;
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
 
@@ -204,15 +206,43 @@ function brace_minimum_cart_weight() {
 }
 add_action( 'woocommerce_check_cart_items', 'brace_minimum_cart_weight' );
 
+// Add Delivery slots to acf select
+function brace_acf_delivery_options( $field ) {
+
+    global $woocommerce;
+
+    $field['choices'] = array();
+    
+    $zones = WC_Shipping_Zones::get_zones();
+    $methods = array_column( $zones, 'shipping_methods' );
+    
+    foreach ( $methods[0] as $key => $class ) {
+        $item = [
+            "id" => 'flat_rate:'.$class->instance_id,
+            "name" => $class->title
+        ];
+        $choices[] = $item;
+    }
+
+    if( is_array($choices) ) {
+        foreach( $choices as $choice ) {
+            $field['choices'][ $choice['id'] ] = $choice['name'];
+        }
+    }
+
+    return $field;
+}
+
+add_filter('acf/load_field/name=next_day_delivery_class', 'brace_acf_delivery_options');
+
+// Hide NDD if time passed
 function brace_nextday_delivery_cutoff( $rates, $package ) {
     
     date_default_timezone_set("Europe/London");
     $current_time = strtotime( date("H:i:s") );
     $cutoff_time = strtotime( get_option('options_next_day_delivery_cut_off_time') );
     
-    //$cutoff_time = strtotime('13:00:00');
-
-    $delivery_id = 'flat_rate:1';
+    $delivery_id = get_option('options_next_day_delivery_class');
 
     if( $current_time > $cutoff_time ):
         unset( $rates[$delivery_id] );
