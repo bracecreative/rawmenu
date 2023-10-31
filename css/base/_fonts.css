@@ -1,0 +1,15 @@
+/*===== FONTS =====*/
+@font-face {
+	font-family: DianeAmorta;
+	src: url("./../../assets/fonts/DianeAmorta-eZdze.otf");
+}
+
+@font-face {
+	font-family: PlusJakartaSans;
+	src: url("../../assets/fonts/PlusJakartaSans-VariableFont_wght.ttf");
+}
+
+:root {
+	--main: "DianeAmorta", Arial, Helvetica, sans-serif;
+	--body: "PlusJakartaSans", Arial, Helvetica, sans-serif;
+}

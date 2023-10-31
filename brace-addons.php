@@ -28,7 +28,7 @@ add_action( 'wp_enqueue_scripts', 'brace_addons_enqueue_css' );
 function brace_addons_dog_food_calculator( ) {
     include __DIR__ . '/components/dog-food-calculator.php';
 }
-add_action( 'woocommerce_single_product_summary', 'brace_addons_dog_food_calculator', 35 );
+add_action( 'woocommerce_after_single_product_summary', 'brace_addons_dog_food_calculator', 5 );
 
 // Create User Roles
 add_role( 'wholesale', 'Wholesale', get_role( 'customer' )->capabilities );
