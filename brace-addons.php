@@ -251,3 +251,99 @@ function brace_nextday_delivery_cutoff( $rates, $package ) {
     return $rates;
 }
 add_filter( 'woocommerce_package_rates', 'brace_nextday_delivery_cutoff', 10, 2 );
+
+// Awaiting Fulfilment Order Status
+function brace_order_status_awaiting_fulfilment() {
+    register_post_status( 'wc-awaiting-fulfilment', array(
+        'label'                     => 'Awaiting Fulfillment',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'exclude_from_search'       => false,
+        'label_count'               => _n_noop( 'Awaiting Fulfillment <span class="count">(%s)</span>', 'Awaiting Fulfillment <span class="count">(%s)</span>' )
+    ) );
+}
+add_action( 'init', 'brace_order_status_awaiting_fulfilment' );
+
+// Awaiting Pickup Order Status
+function brace_order_status_awaiting_pickup() {
+    register_post_status( 'wc-awaiting-pickup', array(
+        'label'                     => 'Awaiting Pickup',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'exclude_from_search'       => false,
+        'label_count'               => _n_noop( 'Awaiting Pickup <span class="count">(%s)</span>', 'Awaiting Pickup <span class="count">(%s)</span>' )
+    ) );
+}
+add_action( 'init', 'brace_order_status_awaiting_pickup' );
+
+// Awaiting Shipment Order Status
+function brace_order_status_awaiting_shipment() {
+    register_post_status( 'wc-awaiting-shipment', array(
+        'label'                     => 'Awaiting Shipment',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'exclude_from_search'       => false,
+        'label_count'               => _n_noop( 'Awaiting Shipment <span class="count">(%s)</span>', 'Awaiting Shipment <span class="count">(%s)</span>' )
+    ) );
+}
+add_action( 'init', 'brace_order_status_awaiting_shipment' );
+
+// Partially Refunded Order Status
+function brace_order_status_partial_refunded() {
+    register_post_status( 'wc-partial-refund', array(
+        'label'                     => 'Partially Refunded',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'exclude_from_search'       => false,
+        'label_count'               => _n_noop( 'Partially Refunded <span class="count">(%s)</span>', 'Partially Refunded <span class="count">(%s)</span>' )
+    ) );
+ }
+ add_action( 'init', 'brace_order_status_partial_refunded' );
+
+ // Partially Refunded Order Status
+function brace_order_status_partial_shipped() {
+    register_post_status( 'wc-partial-shipped', array(
+        'label'                     => 'Partially Shipped',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'exclude_from_search'       => false,
+        'label_count'               => _n_noop( 'Partially Shipped <span class="count">(%s)</span>', 'Partially Shipped <span class="count">(%s)</span>' )
+    ) );
+ }
+ add_action( 'init', 'brace_order_status_partial_shipped' );
+
+ // Shipped Order Status
+function brace_order_status_shipped() {
+    register_post_status( 'wc-shipped', array(
+        'label'                     => 'Shipped',
+        'public'                    => true,
+        'show_in_admin_status_list' => true,
+        'show_in_admin_all_list'    => true,
+        'exclude_from_search'       => false,
+        'label_count'               => _n_noop( 'Shipped <span class="count">(%s)</span>', 'Shipped <span class="count">(%s)</span>' )
+    ) );
+ }
+ add_action( 'init', 'brace_order_status_shipped' );
+
+ // Add New Order Statuses to array
+ function brace_add_order_statuses( $order_statuses ) {
+    $new_order_statuses = array();
+    foreach ( $order_statuses as $key => $status ) {
+        $new_order_statuses[ $key ] = $status;
+        if ( 'wc-processing' === $key ) {
+            $new_order_statuses['wc-awaiting-fulfilment'] = 'Awaiting Fulfillment';
+            $new_order_statuses['wc-awaiting-pickup'] = 'Awaiting Pickup';
+            $new_order_statuses['wc-awaiting-shipment'] = 'Awaiting Shipment';
+            $new_order_statuses['wc-partial-refund'] = 'Partially Refunded';
+            $new_order_statuses['wc-partial-shipped'] = 'Partially Shipped';
+            $new_order_statuses['wc-shipped'] = 'Shipped';
+        }
+    }
+    return $new_order_statuses;
+ }
+ add_filter( 'wc_order_statuses', 'brace_add_order_statuses' );
