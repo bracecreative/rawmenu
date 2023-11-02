@@ -23,10 +23,7 @@
 .dog-food-calculator .background-bottom-images,
 .background-top-images {
 	position: relative;
-}
-
-.dog-food-calculator .background-top-images {
-	position: relative;
+	z-index: 40;
 }
 
 .dog-food-calculator .background-bottom-images,
@@ -38,7 +35,7 @@
 }
 
 .dog-food-calculator .background-top-images .image-one {
-	right: 5px;
+	right: -5px;
 	height: 75px;
 	bottom: -63px;
 	rotate: 15deg;
@@ -69,8 +66,7 @@
 }
 
 .dog-food-calculator .background-bottom-images .image-two,
-.image-three,
-.image-four {
+.image-three {
 	height: 100px;
 	width: fit-content;
 	position: absolute;
@@ -85,14 +81,6 @@
 }
 
 .dog-food-calculator .background-bottom-images .image-three {
-	right: 290px;
-	bottom: 10px;
-	height: 75px;
-	rotate: -15deg;
-	width: fit-content;
-}
-
-.dog-food-calculator .background-bottom-images .image-four {
 	left: 10px;
 	bottom: 100px;
 	height: 100px;
@@ -100,11 +88,16 @@
 	width: fit-content;
 }
 
+.dog-food-calculator .foodCalc {
+	position: relative;
+	z-index: 50;
+}
+
 .dog-food-calculator .foodCalc-title {
-	font-size: 30px;
 	font-weight: 700;
-	margin: 0 0 2.5rem;
+	font-size: 1.25rem;
 	color: var(--white);
+	margin-bottom: 0.5rem;
 	letter-spacing: 0.25px;
 	font-family: var(--main);
 	text-transform: uppercase;
@@ -113,12 +106,11 @@
 .dog-food-calculator .form-fieldset-select {
 	display: grid;
 	padding: 1rem;
-	grid-gap: 2rem;
+	grid-gap: 1rem;
 	border-radius: 10px;
 	align-items: center;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr;
 	justify-content: space-between;
-	/* background-color: var(--darkRed); */
 }
 
 .dog-food-calculator .foodCalc-fieldset {
@@ -146,13 +138,12 @@
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .foodCalc-label {
 	height: 100%;
+	grid-gap: 1rem;
 	cursor: pointer;
 	padding: 0.5rem;
 	border-radius: 4px;
 	position: relative;
-	grid-gap: 1rem;
 	background-color: var(--darkRed);
-	/* border: 2px solid var(--red); */
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .dog-food-calculator
@@ -161,21 +152,22 @@
 	.foodCalc-label
 	.dog-bone {
 	width: 100%;
-	height: 75px;
+	height: 50px;
 	object-fit: contain;
 	object-position: center;
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .foodCalc-label label {
-	font-size: 20px;
-	letter-spacing: 0.3px;
+	font-size: 1rem;
+	margin-top: 0.75rem;
+	letter-spacing: 0.15rem;
 	font-family: var(--main);
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select label {
 	display: block;
 	font-weight: 700;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	color: var(--white);
 }
 
@@ -190,13 +182,13 @@
 
 .dog-food-calculator .foodCalc-inputs-options {
 	cursor: pointer;
-	padding: 1rem;
+	padding: 0rem;
 	border-radius: 4px;
 }
 
 .dog-food-calculator .foodCalc .foodCalc-input {
 	display: flex;
-	padding-top: 1.5rem;
+	padding-top: 0rem;
 	align-items: center;
 	margin-bottom: 1.5rem;
 	-ms-flex-align: center;
@@ -217,7 +209,7 @@
 	cursor: auto;
 	font-weight: 700;
 	line-height: 1.5;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	color: var(--white);
 	margin-bottom: 0rem;
 	letter-spacing: 0.05rem;
@@ -233,9 +225,9 @@
 }
 
 .dog-food-calculator .foodCalc .foodCalc-input-results {
-	display: flex;
-	padding: 1rem;
 	margin: 0;
+	display: flex;
+	padding: 0rem;
 	max-width: 850px;
 	flex-direction: column;
 }
@@ -266,7 +258,7 @@
 	cursor: auto;
 	font-weight: 700;
 	line-height: 1.5;
-	font-size: 1.25rem;
+	font-size: 1rem;
 	color: var(--white);
 	margin-bottom: 0rem;
 	letter-spacing: 0.05rem;
@@ -278,7 +270,7 @@
 	font-weight: 500;
 	line-height: 1.5;
 	max-width: 700px;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	color: var(--white);
 	margin-bottom: 0rem;
 	letter-spacing: 0.05rem;
@@ -290,7 +282,7 @@ strong {
 	cursor: auto;
 	font-weight: 500;
 	line-height: 1.5;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	color: var(--white);
 	margin-bottom: 0rem;
 	letter-spacing: 0.05rem;
@@ -301,7 +293,7 @@ strong {
 .dog-food-calculator .foodCalc-result {
 	font-weight: 900;
 	line-height: 1.5;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	color: var(--white);
 	letter-spacing: 0.05rem;
 	font-family: var(--body);

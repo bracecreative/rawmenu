@@ -1,16 +1,51 @@
-export default function (productDetails) {
+/* WOOCOMMERCE PRODUCTS */
+/* Fetch single Woocommerce Product
+ from the server api endpoint */
+const getWoocommerceProduct = async () => {
+	try {
+		const response = await fetch("/js/api/woocommerceProducts.js");
+
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+
+		return await response.json();
+	} catch (error) {
+		console.error("Error fetching Woocommerce Product:", error);
+	}
+};
+
+(async () => {
+	try {
+		const currentProduct = await getWoocommerceProduct();
+		// You can use 'currentProduct' here or pass it to other functions as needed.
+		dogCalculator(currentProduct);
+	} catch (error) {
+		console.error("Error in the main function:", error);
+	}
+})();
+
+/* SINGLE PRODUCT CALCULATOR */
+/* Woocommerce Product Calculator */
+function dogCalculator(productDetails) {
+	console.log(productDetails);
+
 	const productName = $("h1.productView-title").text();
 	let productWeight = null;
 
-	if (productDetails.weight) {
-		productWeight = productDetails.weight.value;
+	if (productDetails?.weight) {
+		productWeight = productDetails?.weight;
 	}
 	let productPrice = null;
 
-	if ("with_tax" in productDetails.price) {
-		productPrice = productDetails.price.with_tax.value;
-	} else if ("without_tax" in productDetails.price) {
-		productPrice = productDetails.price.without_tax.value;
+	// With Tex
+	if ("with_tax" in productDetails?.price) {
+		productPrice = productDetails.price;
+		// Without Tex
+	} else if ("without_tax" in productDetails?.regular_price) {
+		productPrice = productDetails?.regular_price;
+	} else {
+		productPrice = productDetails.price;
 	}
 
 	let myDog = $('input[name="foodCalc-select"]:checked').val();

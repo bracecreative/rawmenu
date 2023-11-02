@@ -1,5 +1,3 @@
-import "./js/dog-food-calculator";
-
 let new_note_button = document.querySelector(".new-private-note");
 
 if (new_note_button) {

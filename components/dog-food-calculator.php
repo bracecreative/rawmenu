@@ -1,9 +1,7 @@
 <section class="dog-food-calculator">
     <div class="background-top-images">
-        <div class="image-one">
-            <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-02.svg' ?>" alt="Dog-paw svg">
-            <h4 class="title">Best affordable organic pet food</h4>
-        </div>
+        <img class="image-one" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-02.svg' ?>"
+            alt="Dog-paw svg">
     </div>
     <form action="" class="foodCalc form" onsubmit="return false">
         <h4 class="foodCalc-title">Select your type of dog</h4>
@@ -69,9 +67,7 @@
             alt="Dog-in-heart svg">
         <img class="image-two" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-08.svg' ?>"
             alt="Dog-paw svg">
-        <img class="image-three" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-03.svg' ?>"
-            alt="Dog-paw svg">
-        <img class="image-four" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-09.svg' ?>"
+        <img class="image-three" src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-09.svg' ?>"
             alt="Dog-paw svg">
     </div>
 </section>
