@@ -1,4 +1,4 @@
-import "./js/dog-food-calculator";
+import "dog-food-calculator";
 
 let new_note_button = document.querySelector(".new-private-note");
 

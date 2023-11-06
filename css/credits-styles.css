@@ -1,0 +1,25 @@
+.order-credit-form .form-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.order-credit-form .form-wrapper .form-col {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.order-credit-form .form-wrapper .form-col label {
+    font-weight: 600;
+}
+
+.order-credit-form .form-wrapper .form-col input[type=text],
+.order-credit-form .form-wrapper .form-col textarea {
+    width: 100%;
+}
