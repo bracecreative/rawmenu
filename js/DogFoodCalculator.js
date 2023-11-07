@@ -30,6 +30,31 @@ const dogCalculator = async (productTitle, productPrice, productWeight) => {
 
 			if (myDog === "puppy") {
 				document.getElementById("foodCalc-input--age").style.display = "flex";
+				document.getElementById("selected-dog-puppy").style.backgroundColor =
+					"#e78f01";
+				document.getElementById("selected-dog-adultDog").style.backgroundColor =
+					"#a70107";
+				document.getElementById(
+					"selected-dog-workingDog"
+				).style.backgroundColor = "#a70107";
+			} else if (myDog === "adultDog") {
+				document.getElementById("selected-dog-puppy").style.backgroundColor =
+					"#a70107";
+				document.getElementById("selected-dog-adultDog").style.backgroundColor =
+					"#e78f01";
+				document.getElementById(
+					"selected-dog-workingDog"
+				).style.backgroundColor = "#a70107";
+				document.getElementById("foodCalc-input--age").style.display = "none";
+			} else if (myDog === "workingDog") {
+				document.getElementById("selected-dog-puppy").style.backgroundColor =
+					"#a70107";
+				document.getElementById("selected-dog-adultDog").style.backgroundColor =
+					"#a70107";
+				document.getElementById(
+					"selected-dog-workingDog"
+				).style.backgroundColor = "#e78f01";
+				document.getElementById("foodCalc-input--age").style.display = "none";
 			} else {
 				document.getElementById("foodCalc-input--age").style.display = "none";
 			}

@@ -119,6 +119,8 @@
 	display: grid;
 	grid-row: 1fr;
 	grid-gap: 1.5rem;
+	align-items: center;
+	justify-content: center;
 	grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -126,10 +128,14 @@
 	margin-right: 0;
 	text-align: center;
 	border-radius: 4px;
+	padding: 0 !important;
 	cursor: pointer !important;
 	overflow: hidden !important;
 	background-color: var(--darkRed);
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.dog-food-calculator .foodCalc-fieldset #selected-dog-puppy {
+	background-color: var(--yellow);
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .form-radio {
@@ -148,9 +154,11 @@
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .foodCalc-label {
 	z-index: 90;
-	height: 100%;
+	width: 100%;
+	height: 120px;
 	grid-gap: 1rem;
 	padding: 0.5rem;
+	max-width: 275px;
 	position: relative;
 }
 
