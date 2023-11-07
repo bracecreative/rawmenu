@@ -10,6 +10,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
  // Enqueue Assets
 function brace_addons_enqueue( $hook ) {
     if ('profile.php' === $hook) {
@@ -20,12 +21,34 @@ add_action( 'admin_enqueue_scripts', 'brace_addons_enqueue' );
 
 // Enqueue CSS styling
 function brace_addons_enqueue_css( $hook ) {
-    // Enqueue Dog Food Calculator js
-    wp_enqueue_script( 'brace_addons_woocommerce_products', plugins_url( '/js/api/woocommerceProducts.js' , __FILE__ ), array(), '', true );
-    wp_enqueue_script( 'brace_addons_dog_food_calculator', plugins_url( '/js/DogFoodCalculator.js' , __FILE__ ), array(), '', true );
      wp_enqueue_style( 'brace_addons_css', plugins_url( 'styles.css' , __FILE__ ), array(), '');
 }
 add_action( 'wp_enqueue_scripts', 'brace_addons_enqueue_css' );
+
+// Enqueue Dog Food Calculator js
+
+function brace_addons_dog_food_calculator_scripts( $hook ) {
+    
+    if(is_product()){
+       $product_id = get_the_ID();
+       $order = wc_get_product($product_id);
+       $order_title = get_the_title();
+       $order_price = $order->get_price();
+       $order_weight = $order->get_weight();
+
+        wp_enqueue_script( 'dog_food_calculator', plugins_url( '/js/DogFoodCalculator.js' , __FILE__ ), array(), '', true );
+    
+        // Localize Script Dog Food Calculator
+        wp_localize_script( 'dog_food_calculator', 'DogFoodCalculatorObject',
+            array( 
+                'product_name' =>  $order_title,
+                'product_price' => $order_price,
+                'product_weight' => $order_weight,
+            )
+        );
+    }
+} 
+add_action( 'wp_enqueue_scripts', 'brace_addons_dog_food_calculator_scripts' );
 
 // Enqueue CSS Food Calculator
 function brace_addons_dog_food_calculator( ) {

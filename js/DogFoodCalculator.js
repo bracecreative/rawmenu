@@ -1,71 +1,45 @@
-/* WOOCOMMERCE PRODUCTS */
-/* Fetch single Woocommerce Product
- from the server api endpoint */
-const getWoocommerceProduct = async () => {
-	try {
-		const response = await fetch("/js/api/woocommerceProducts.js");
-
-		if (!response.ok) {
-			throw new Error("Network response was not ok");
-		}
-
-		return await response.json();
-	} catch (error) {
-		console.error("Error fetching Woocommerce Product:", error);
-	}
-};
-
-(async () => {
-	try {
-		const currentProduct = await getWoocommerceProduct();
-		// You can use 'currentProduct' here or pass it to other functions as needed.
-		dogCalculator(currentProduct);
-	} catch (error) {
-		console.error("Error in the main function:", error);
-	}
-})();
+// localize Script Values
+const productTitle = DogFoodCalculatorObject.product_name;
+const productPrice = DogFoodCalculatorObject.product_price;
+const productWeight = DogFoodCalculatorObject.product_weight;
 
 /* SINGLE PRODUCT CALCULATOR */
 /* Woocommerce Product Calculator */
-function dogCalculator(productDetails) {
-	console.log(productDetails);
+const dogCalculator = async (productTitle, productPrice, productWeight) => {
+	productTitle;
+	productPrice;
+	productWeight;
 
-	const productName = $("h1.productView-title").text();
-	let productWeight = null;
+	// Get the initial selected value
+	let myDog = document.querySelector(
+		'input[name="foodCalc-select"]:checked'
+	).value;
 
-	if (productDetails?.weight) {
-		productWeight = productDetails?.weight;
-	}
-	let productPrice = null;
+	// Add a click event listener to the elements with class "foodCalc-select"
+	const selectInputs = document.querySelectorAll(".foodCalc-select");
 
-	// With Tex
-	if ("with_tax" in productDetails?.price) {
-		productPrice = productDetails.price;
-		// Without Tex
-	} else if ("without_tax" in productDetails?.regular_price) {
-		productPrice = productDetails?.regular_price;
-	} else {
-		productPrice = productDetails.price;
-	}
+	selectInputs.forEach((selectInput) => {
+		selectInput.addEventListener("click", () => {
+			document.getElementById("foodCalc-age").value = "";
+			document.getElementById("foodCalc-weight").value = "";
+			document.getElementById("foodCalc-result").textContent = "";
 
-	let myDog = $('input[name="foodCalc-select"]:checked').val();
-	$(".foodCalc-select").on("click", () => {
-		document.getElementById("foodCalc-age").value = "";
-		document.getElementById("foodCalc-weight").value = "";
-		$("#foodCalc-result").text("");
+			myDog = document.querySelector(
+				'input[name="foodCalc-select"]:checked'
+			).value;
 
-		myDog = $('input[name="foodCalc-select"]:checked').val();
-		if (myDog === "puppy") {
-			$("#foodCalc-input--age").show();
-		} else {
-			$("#foodCalc-input--age").hide();
-		}
+			if (myDog === "puppy") {
+				document.getElementById("foodCalc-input--age").style.display = "block";
+			} else {
+				document.getElementById("foodCalc-input--age").style.display = "none";
+			}
+		});
 	});
 
-	function calculateFood(pet) {
+	const calculateFood = (pet) => {
 		let petFeed = 0;
-		const age = $("#foodCalc-age").val();
-		const weight = $("#foodCalc-weight").val();
+		const age = document.getElementById("foodCalc-age").value;
+		const weight = document.getElementById("foodCalc-weight").value;
 
 		if (pet === "puppy") {
 			if (age !== "") {
@@ -96,21 +70,40 @@ function dogCalculator(productDetails) {
 		}
 
 		if (petFeed !== 0) {
-			$("#foodCalc-result").text(`${petFeed} grams`);
+			document.getElementById("foodCalc-result").textContent =
+				petFeed + " grams";
 			if (productPrice !== null && productWeight !== null) {
 				const avgPrice = (
 					Math.round((productPrice / productWeight) * petFeed * 100) / 100
 				).toFixed(2);
-				const message = `<p class>Based on the food selection of <b>${productName}</b> and the values entered in the calculator above, the average cost to feed your dog will be <b>£ ${avgPrice} per day.</b><sup>*</sup></p>`;
-				$("#foodCalc-perDayPrice").html(message);
+				const message = `<p class>Based on the food selection of <b>${productTitle}</b> and the values entered in the calculator above, the average cost to feed your dog will be <b>£ ${avgPrice} per day.</b><sup>*</sup></p>`;
+				document.getElementById("foodCalc-perDayPrice").innerHTML = message;
 			}
 		}
-	}
+	};
 
-	$("#foodCalc-weight").on("keyup change", () => {
+	// Age & Weight Input Event Listeners
+	const ageInput = document.getElementById("foodCalc-age");
+	const weightInput = document.getElementById("foodCalc-weight");
+
+	// Weight Input
+	weightInput.addEventListener("keyup", () => {
 		calculateFood(myDog);
 	});
-	$("#foodCalc-age").on("keyup change", () => {
+
+	weightInput.addEventListener("change", () => {
 		calculateFood(myDog);
 	});
-}
+
+	// Age Input
+	ageInput.addEventListener("keyup", () => {
+		calculateFood(myDog);
+	});
+
+	ageInput.addEventListener("change", () => {
+		calculateFood(myDog);
+	});
+};
+
+// Usage: Call the dogCalculator function
+dogCalculator(productTitle, productPrice, productWeight);

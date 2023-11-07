@@ -53,11 +53,10 @@
         <div class="foodCalc-input-results">
             <div class="foodCalc-input">
                 <div>Recommended amount to feed per day:</div>
-                <div class="foodCalc-result" id="foodCalc-result">3150 grams</div>
+                <div class="foodCalc-result" id="foodCalc-result"></div>
             </div>
             <p id="foodCalc-perDayPrice">
-            <p class="">Based on the food selection of <b>Marrow Bones Knuckles Pk2</b> and the values entered in the
-                calculator above, the average cost to feed your dog will be <b>£ 3.40 per day.</b><sup>*</sup>
+            <p class="">
             </p>
             </p>
         </div>

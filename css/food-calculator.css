@@ -125,15 +125,21 @@
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select {
 	margin-right: 0;
 	text-align: center;
+	border-radius: 4px;
+	cursor: pointer !important;
+	overflow: hidden !important;
+	background-color: var(--darkRed);
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .form-radio {
 	border: 0;
-	width: 1px;
 	padding: 0;
-	height: 1px;
+	width: 100%;
+	height: 100px;
+	margin: 0 auto;
+	max-width: 250px;
 	overflow: hidden;
-	position: absolute;
 	line-height: normal;
 	clip: rect(1px, 1px, 1px, 1px);
 }
@@ -142,17 +148,14 @@
 	height: 100%;
 	grid-gap: 1rem;
 	padding: 0.5rem;
-	border-radius: 4px;
 	position: relative;
-	cursor: pointer !important;
-	background-color: var(--darkRed);
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .foodCalc-label:hover {
 	transition: all 0.5s ease-in-out;
 	background-color: var(--yellow);
 }
+
 .dog-food-calculator
 	.foodCalc-fieldset
 	.foodCalc-select
@@ -166,7 +169,7 @@
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .foodCalc-label label {
 	font-size: 1rem;
-	margin-top: 0.75rem;
+	margin-top: 1.25rem;
 	letter-spacing: 0.15rem;
 	font-family: var(--main);
 }
@@ -288,8 +291,19 @@
 	font-family: var(--body);
 }
 
-.dog-food-calculator .foodCalc p b,
-strong {
+.dog-food-calculator .foodCalc p b {
+	cursor: auto;
+	font-weight: 500;
+	line-height: 1.5;
+	font-size: 0.95rem;
+	color: var(--white);
+	margin-bottom: 0rem;
+	letter-spacing: 0.05rem;
+	font-family: var(--body);
+	border-bottom: 2px solid var(--yellow);
+}
+
+.dog-food-calculator .foodCalc p strong {
 	cursor: auto;
 	font-weight: 500;
 	line-height: 1.5;
