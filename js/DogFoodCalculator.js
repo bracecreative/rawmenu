@@ -29,7 +29,7 @@ const dogCalculator = async (productTitle, productPrice, productWeight) => {
 			).value;
 
 			if (myDog === "puppy") {
-				document.getElementById("foodCalc-input--age").style.display = "block";
+				document.getElementById("foodCalc-input--age").style.display = "flex";
 			} else {
 				document.getElementById("foodCalc-input--age").style.display = "none";
 			}

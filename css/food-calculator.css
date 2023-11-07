@@ -136,15 +136,18 @@
 	border: 0;
 	padding: 0;
 	width: 100%;
-	height: 100px;
+	z-index: 100;
+	height: 120px;
 	margin: 0 auto;
-	max-width: 250px;
+	max-width: 275px;
 	overflow: hidden;
+	position: absolute;
 	line-height: normal;
 	clip: rect(1px, 1px, 1px, 1px);
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select .foodCalc-label {
+	z-index: 90;
 	height: 100%;
 	grid-gap: 1rem;
 	padding: 0.5rem;
@@ -172,6 +175,7 @@
 	margin-top: 1.25rem;
 	letter-spacing: 0.15rem;
 	font-family: var(--main);
+	cursor: pointer !important;
 }
 
 .dog-food-calculator .foodCalc-fieldset .foodCalc-select label {
