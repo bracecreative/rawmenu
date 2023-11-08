@@ -134,7 +134,7 @@
 	background-color: var(--darkRed);
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.dog-food-calculator .foodCalc-fieldset #selected-dog-puppy {
+.dog-food-calculator .foodCalc-fieldset #puppy {
 	background-color: var(--yellow);
 }
 
@@ -280,7 +280,7 @@
 	font-family: var(--main);
 }
 
-.dog-food-calculator .foodCalc .foodCalc-input #foodCalc-result {
+.dog-food-calculator .foodCalc .foodCalc-input #finalResultRecommendation {
 	cursor: auto;
 	font-weight: 700;
 	line-height: 1.5;
@@ -391,7 +391,7 @@ input[type="number"]::-webkit-outer-spin-button {
 		flex-direction: column;
 	}
 
-	.dog-food-calculator .foodCalc .foodCalc-input #foodCalc-result {
+	.dog-food-calculator .foodCalc .foodCalc-input #finalResultRecommendation {
 		font-size: 1.5rem;
 	}
 }

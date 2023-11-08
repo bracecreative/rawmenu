@@ -7,54 +7,48 @@
         <h4 class="foodCalc-title">Select your type of dog</h4>
         <div class="form-fieldset-select">
             <div class="form-fieldset foodCalc-fieldset">
-                <button id="selected-dog-puppy" class="foodCalc-select">
-                    <input type="radio" class="form-radio" name="foodCalc-select" value="puppy" checked
-                        id="foodCalc-select-puppy">
+                <button id="puppy" value="puppy" class="foodCalc-select">
                     <div class="foodCalc-label">
                         <img class="dog-bone"
                             src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-01.svg' ?>"
                             alt="Dog-bone svg">
-                        <label for="foodCalc-select-puppy">Puppy</label>
+                        <label>Puppy</label>
                     </div>
                 </button>
-                <button id="selected-dog-adultDog" class="foodCalc-select">
-                    <input type="radio" class="form-radio" name="foodCalc-select" value="adultDog"
-                        id="foodCalc-select-adultDog">
+                <button id="adultDog" value="adultDog" class="foodCalc-select">
                     <div class="foodCalc-label">
                         <img class="dog-bone"
                             src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-01.svg' ?>"
                             alt="Dog-bone svg">
-                        <label for="foodCalc-select-adultDog">Adult Dog</label>
+                        <label>Adult Dog</label>
                     </div>
                 </button>
-                <button id="selected-dog-workingDog" class="foodCalc-select">
-                    <input type="radio" class="form-radio" name="foodCalc-select" value="workingDog"
-                        id="foodCalc-select-workingDog">
+                <button id="workingDog" value="workingDog" class="foodCalc-select">
                     <div class="foodCalc-label">
                         <img class="dog-bone"
                             src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/svg/Assets%20RM-01.svg' ?>"
                             alt="Dog-bone svg">
-                        <label for="foodCalc-select-workingDog">Working Dog</label>
+                        <label>Working Dog</label>
                     </div>
                 </button>
             </div>
             <div class="foodCalc-inputs-options">
                 <div class="foodCalc-input">
                     <label for="foodCalc-weight">Enter the weight of your dog in kg</label>
-                    <input type="number" class="form-input" name="foodCalc-weight" min="0" id="foodCalc-weight">
+                    <input type="number" class="form-input" name="foodCalc-weight" min="0" id="dogWeightInput">
                 </div>
-                <div class="foodCalc-input" id="foodCalc-input--age">
+                <div class="foodCalc-input" id="dogInputAgeOption">
                     <label for="foodCalc-age">Enter the age of your dog in months</label>
-                    <input type="number" class="form-input" name="foodCalc-age" min="0" id="foodCalc-age">
+                    <input type="number" class="form-input" name="foodCalc-age" min="0" id="dogAgeInput">
                 </div>
             </div>
         </div>
         <div class="foodCalc-input-results">
             <div class="foodCalc-input">
                 <div>Recommended amount to feed per day:</div>
-                <div class="foodCalc-result" id="foodCalc-result"></div>
+                <div class="foodCalc-result" id="finalResultRecommendation"></div>
             </div>
-            <p id="foodCalc-perDayPrice">
+            <p id="finalResultPricePerDay">
             <p class="">
             </p>
             </p>

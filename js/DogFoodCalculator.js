@@ -10,61 +10,107 @@ const dogCalculator = async (productTitle, productPrice, productWeight) => {
 	productPrice;
 	productWeight;
 
-	// Get the initial selected value
-	let myDog = document.querySelector(
-		'input[name="foodCalc-select"]:checked'
-	).value;
+	// Dog Type Options
+	const puppy = document.getElementById("puppy");
+	const adultDog = document.getElementById("adultDog");
+	const workingDog = document.getElementById("workingDog");
 
-	// Add a click event listener to the elements with class "foodCalc-select"
-	const selectInputs = document.querySelectorAll(".foodCalc-select");
+	// Dog Age & Weight Input options Listeners
+	const ageInput = document.getElementById("dogAgeInput");
+	const weightInput = document.getElementById("dogWeightInput");
 
-	selectInputs.forEach((selectInput) => {
-		selectInput.addEventListener("click", () => {
-			document.getElementById("foodCalc-age").value = "";
-			document.getElementById("foodCalc-weight").value = "";
-			document.getElementById("foodCalc-result").textContent = "";
+	/* Gets the initial selected value */
+	let myDog = puppy.value;
 
-			myDog = document.querySelector(
-				'input[name="foodCalc-select"]:checked'
-			).value;
+	// Dog Input Age Option
+	const dogInputAgeOption = document.getElementById("dogInputAgeOption");
 
-			if (myDog === "puppy") {
-				document.getElementById("foodCalc-input--age").style.display = "flex";
-				document.getElementById("selected-dog-puppy").style.backgroundColor =
-					"#e78f01";
-				document.getElementById("selected-dog-adultDog").style.backgroundColor =
-					"#a70107";
-				document.getElementById(
-					"selected-dog-workingDog"
-				).style.backgroundColor = "#a70107";
-			} else if (myDog === "adultDog") {
-				document.getElementById("selected-dog-puppy").style.backgroundColor =
-					"#a70107";
-				document.getElementById("selected-dog-adultDog").style.backgroundColor =
-					"#e78f01";
-				document.getElementById(
-					"selected-dog-workingDog"
-				).style.backgroundColor = "#a70107";
-				document.getElementById("foodCalc-input--age").style.display = "none";
-			} else if (myDog === "workingDog") {
-				document.getElementById("selected-dog-puppy").style.backgroundColor =
-					"#a70107";
-				document.getElementById("selected-dog-adultDog").style.backgroundColor =
-					"#a70107";
-				document.getElementById(
-					"selected-dog-workingDog"
-				).style.backgroundColor = "#e78f01";
-				document.getElementById("foodCalc-input--age").style.display = "none";
-			} else {
-				document.getElementById("foodCalc-input--age").style.display = "none";
-			}
-		});
+	/* Final dog food result recommendation 
+	This is in grams (Example: 910 grams) */
+	let finalResultRecommendation = document.getElementById(
+		"finalResultRecommendation"
+	);
+
+	/* Final dog price result recommendation 
+	This is in pounds(£) (Example: £2.39) */
+	let finalResultPricePerDay = document.getElementById(
+		"finalResultPricePerDay"
+	);
+
+	// Puppy Dog Option Selected
+	puppy.addEventListener("click", () => {
+		// Set the Users dog to Puppy
+		myDog = puppy.value;
+
+		// Display Dog Input Age Option
+		dogInputAgeOption.style.display = "flex";
+
+		// Styling Change
+		puppy.style.backgroundColor = "#e78f01";
+		adultDog.style.backgroundColor = "#a70107";
+		workingDog.style.backgroundColor = "#a70107";
+
+		// Clear Age & Weight Input Fields
+		ageInput.value = " ";
+		weightInput.value = " ";
+
+		// Clear final dog food result recommendation
+		finalResultRecommendation.textContent = " ";
+
+		// Clear final dog price result recommendation
+		finalResultPricePerDay.innerHTML = " ";
 	});
 
+	// Adult Dog Option Selected
+	adultDog.addEventListener("click", () => {
+		// Set the Users dog to Puppy
+		myDog = adultDog.value;
+
+		// Hide Dog Input Age Option
+		dogInputAgeOption.style.display = "none";
+
+		// Adult Button Styling Change
+		puppy.style.backgroundColor = "#a70107";
+		adultDog.style.backgroundColor = "#e78f01";
+		workingDog.style.backgroundColor = "#a70107";
+
+		// Clear Age & Weight Input Fields
+		weightInput.value = " ";
+
+		// Clear final dog food result recommendation
+		finalResultRecommendation.textContent = " ";
+
+		// Clear final dog price result recommendation
+		finalResultPricePerDay.innerHTML = " ";
+	});
+
+	// Working Dog Option Selected
+	workingDog.addEventListener("click", () => {
+		myDog = workingDog.value;
+
+		// Hide Dog Input Age Option
+		dogInputAgeOption.style.display = "none";
+
+		// Styling Change
+		puppy.style.backgroundColor = "#a70107";
+		adultDog.style.backgroundColor = "#a70107";
+		workingDog.style.backgroundColor = "#e78f01";
+
+		// Clear Age & Weight Input Fields
+		weightInput.value = " ";
+
+		// Clear final dog food result recommendation
+		finalResultRecommendation.textContent = " ";
+
+		// Clear final dog price result recommendation
+		finalResultPricePerDay.innerHTML = " ";
+	});
+
+	// Dog Food Calculations (Including weight values )
 	const calculateFood = (pet) => {
 		let petFeed = 0;
-		const age = document.getElementById("foodCalc-age").value;
-		const weight = document.getElementById("foodCalc-weight").value;
+		const age = ageInput.value;
+		const weight = weightInput.value;
 
 		if (pet === "puppy") {
 			if (age !== "") {
@@ -95,21 +141,16 @@ const dogCalculator = async (productTitle, productPrice, productWeight) => {
 		}
 
 		if (petFeed !== 0) {
-			document.getElementById("foodCalc-result").textContent =
-				petFeed + " grams";
+			finalResultRecommendation.textContent = petFeed + " grams";
 			if (productPrice !== null && productWeight !== null) {
 				const avgPrice = (
 					Math.round((productPrice / productWeight) * petFeed * 100) / 100
 				).toFixed(2);
 				const message = `<p class>Based on the food selection of <b>${productTitle}</b> and the values entered in the calculator above, the average cost to feed your dog will be <b>£ ${avgPrice} per day.</b><sup>*</sup></p>`;
-				document.getElementById("foodCalc-perDayPrice").innerHTML = message;
+				finalResultPricePerDay.innerHTML = message;
 			}
 		}
 	};
-
-	// Age & Weight Input Event Listeners
-	const ageInput = document.getElementById("foodCalc-age");
-	const weightInput = document.getElementById("foodCalc-weight");
 
 	// Weight Input
 	weightInput.addEventListener("keyup", () => {
