@@ -320,7 +320,7 @@ add_action( 'wp_ajax_brace_addons_order_notes_ajax', 'brace_addons_order_notes_a
 // Set 10kg min weight for cart
 function brace_minimum_cart_weight() {
 
-    $minimum_weight = 10000;
+    $minimum_weight = 1000;
 	$cart_contents_weight = WC()->cart->get_cart_contents_weight();
 
     if( $cart_contents_weight < $minimum_weight  ) {
