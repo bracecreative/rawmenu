@@ -27,8 +27,8 @@ add_action( 'admin_enqueue_scripts', 'brace_addons_enqueue' );
 // Enqueue CSS styling
 function brace_addons_enqueue_css( $hook ) {
     // Enqueue Dog Food Calculator js
-    wp_enqueue_script( 'brace_addons_woocommerce_products', plugins_url( '/js/api/woocommerceProducts.js' , __FILE__ ), array(), '', true );
-    wp_enqueue_script( 'brace_addons_dog_food_calculator', plugins_url( '/js/DogFoodCalculator.js' , __FILE__ ), array(), '', true );
+    //wp_enqueue_script( 'brace_addons_woocommerce_products', plugins_url( '/js/api/woocommerceProducts.js' , __FILE__ ), array(), '', true );
+    //wp_enqueue_script( 'brace_addons_dog_food_calculator', plugins_url( '/js/DogFoodCalculator.js' , __FILE__ ), array(), '', true );
     wp_enqueue_style( 'brace_addons_css', plugins_url( 'styles.css' , __FILE__ ), array(), '');
 }
 add_action( 'wp_enqueue_scripts', 'brace_addons_enqueue_css' );
