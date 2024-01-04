@@ -220,6 +220,43 @@ function brace_allergies_order_details($order){
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_allergies_order_details', 10, 1 );
 
+// Add substitutions field to checkout
+function brace_substitutions_field( $checkout ) {
+
+    echo '<div id="substitutions"><h2>' . __('Substitutions') . '</h2>';
+
+    woocommerce_form_field( 'substitutions', array(
+        'type'          => 'select',
+        'class'         => array('substitutions form-row-wide'),
+        'label'         => __('Are you happy for us to substitute items which maybe out of stock?'),
+        'options'     => array(
+            'yes' => __('Yes'),
+            'no' => __('No')
+        ),
+        'default' => 'yes', 
+        ), $checkout->get_value( 'substitutions' ));
+
+    echo '</div>';
+
+}
+add_action( 'woocommerce_after_order_notes', 'brace_substitutions_field', 2 );
+
+// Save substitutions field
+function brace_substitutions_field_save() {
+    if ( ! empty( $_POST['substitutions'] ) ) {
+        update_post_meta( $order_id, 'substitutions', sanitize_text_field( $_POST['substitutions'] ) );
+    }
+}
+add_action( 'woocommerce_checkout_update_order_meta', 'brace_substitutions_field_save' );
+
+// Add substitutions information to Order Details Page
+function brace_substitutions_order_details($order){
+    if( !empty( get_post_meta( $order->ID, 'substitutions', true ) ) ):
+        echo '<p><strong>'.__('Substitutions').':</strong> ' . get_post_meta( $order->id, 'substitutions', true ) . '</p>';
+    endif;
+}
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'brace_substitutions_order_details', 11, 1 );
+
 // Credit Option Button Order Details Page
 // function brace_store_credit_order_details( $order ) {
 //     echo '<button type="button" class="button add-store-credit">' . __( 'Store Credit!' ) . '</button>';
